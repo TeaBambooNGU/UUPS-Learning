@@ -1,36 +1,32 @@
 // SPDX-License-Identifier: MIT LICENSE
 pragma solidity ^0.8.20;
 
-import {ERC20} from "./ERC20.sol";
-import {UUPSUpgradeable} from "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol";
-import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
 
-contract TANGV1 is ERC20, UUPSUpgradeable, Initializable{
+contract TANGV1 is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable, OwnableUpgradeable, UUPSUpgradeable{
     
     
+    /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
 
-    function initialize() public initializer {
-        __ERC20_init("TANGV1", "TANGV1");
-        _mint(msg.sender, 1000000000000000000000000000);
+    function initialize(address initialOwner) initializer public {
+        __ERC20_init("TANGToken", "TANG");
+        __ERC20Permit_init("TANGToken");
+        __Ownable_init(initialOwner);
+        __UUPSUpgradeable_init();
     }
 
-    function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
+    function _authorizeUpgrade(address newImplementation)
+        internal
+        onlyOwner
+        override
+    {}
 
-    function __ERC20_init(string memory name_, string memory symbol_) internal initializer {
-        __Context_init_unchained();
-        __ERC20_init_unchained(name_, symbol_);
-    }
-
-    function __Context_init_unchained() internal initializer {
-
-    }
-
-    function __ERC20_init_unchained(string memory name_, string memory symbol_) internal initializer {
-
-    }
 }
