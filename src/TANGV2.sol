@@ -9,7 +9,7 @@ import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/U
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 
-contract TANGV1 is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable, OwnableUpgradeable, UUPSUpgradeable{
+contract TANGV2 is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable, OwnableUpgradeable, UUPSUpgradeable{
     
     error UUPSUnauthorizedUpdate();
     using Strings for string;
@@ -38,7 +38,7 @@ contract TANGV1 is Initializable, ERC20Upgradeable, ERC20PermitUpgradeable, Owna
     }
 
     function getVersion() external pure returns (uint256){
-        return 1;
+        return 2;
     }
 
 }
